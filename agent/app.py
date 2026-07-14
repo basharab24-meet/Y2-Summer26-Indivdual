@@ -19,6 +19,7 @@ def run_chat():
 
         history.append({'role': 'user', 'content': user_input})
         print('History:', history)
+        print(response) 
         response = client.messages.create(
             model='claude-haiku-4-5-20251001',
             max_tokens=300,
@@ -37,5 +38,12 @@ run_chat()
 #the ai doesn't have memory
 
 #I don't think that deleting load_dotenv() would affect the chatbot's ability to function, but it would prevent the program from loading environment variables from a .env file.
-#
+
+#usage.input_tokens: The number of tokens the AI read.
+#usage.output_tokens: The number of tokens the AI generated as a response
+
 #I think deleting temperature=0.7 will automatically set the temperature to its default value, which may affect the randomness and creativity of the chatbot's responses.
+#tempature controls how unique the answer is.(How creative it is)
+
+#There will be 6 messages in the history: 3 user messages and 3 ChatBot responses
+#The api needs the full history every single time so it would be able to create the most fitting and specific responses.
