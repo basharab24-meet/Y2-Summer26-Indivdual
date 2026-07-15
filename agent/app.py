@@ -15,7 +15,11 @@ def run_chat():
     history.append({'role': 'user', 'content': user_goal})
     while True:
 
-        user_input = input('>> ')
+        user_input = input(
+    f"[Turn {sum(1 for m in history if m['role'] == 'user')}]: you>> "
+)
+
+        #user_input = input("[Turn " + str(len(history)) + "]: you>> ")
 
         if user_input.lower() == 'exit':
             break
@@ -34,7 +38,7 @@ def run_chat():
         #print(response) 
 
         reply = response.content[0].text
-        print(f'Claude: {reply}')
+        print(f'Rick: {reply}')
         
         history.append({'role': 'assistant', 'content': reply})
 
