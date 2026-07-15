@@ -8,18 +8,22 @@ client = Anthropic(api_key=os.getenv('ANTHROPIC_API_KEY'))
 
 def run_chat():
     print('You: (type exit to quit)')
-    system_message = "Your name is Alex. You are a helpful and friendly assistant who helps students learn about technology and computer science. You explain things clearly and always encourage curiosity."
-    history = []
+    system_message = "Your name is Rick. You are a music Teacher with over 30 years of experience. Teach music theory / rhythm theory (According to what I ask). You should respond in a friendly way but be like a music teacher - be serious about the teaching. Never teach something that is not checked or verified or not correct. Allways answer with clarity, Make your responses organized. If the user types /summary, you will show a summary of the conversation, but it has to be well organized."
 
+    history = []
+    user_goal = input("What is your goal for this lesson? ")
+    history.append({'role': 'user', 'content': user_goal})
     while True:
+
         user_input = input('>> ')
 
         if user_input.lower() == 'exit':
             break
+        
 
         history.append({'role': 'user', 'content': user_input})
-        print('History:', history)
-        print(response) 
+        #print('History:', history)
+        
         response = client.messages.create(
             model='claude-haiku-4-5-20251001',
             max_tokens=300,
@@ -27,9 +31,11 @@ def run_chat():
             system=system_message,
             messages=history
         )
+        #print(response) 
 
         reply = response.content[0].text
         print(f'Claude: {reply}')
+        
         history.append({'role': 'assistant', 'content': reply})
 
 run_chat()
@@ -61,3 +67,12 @@ run_chat()
 # The chatbot behaves exactly the same, but you can no longer see the conversation history for debugging.
 
 #I didn't have bugs
+
+#Reflection lab 3:
+#Something invisible that shapes how something behaves that outsiders never see is post-traumatic stress disorder (PTSD). People with PTSD may have flashbacks, nightmares, and severe anxiety that can affect their behavior and interactions with others. This is something that outsiders may not see or understand, but it can have a significant impact on the person's life.
+#system=system_message: Without this line, the Ai would not be special, it will have no context, so it will have no purpose, unlike with the line of code.
+#After running the code, I see that the code can't run without this line, because there are other lines reffering to it, and without it there is an error.
+#After deleting one always/ never rule from the system message, the Ai doesn't follow the rule anymore, and it can give wrong answers. For example, if I deleted the rule "Never teach something that is not checked and verified or not correct", the Ai could give me a wrong answer about music theory.
+#After deleting response-format from the system message, the Ai doesn't follow the format anymore, and it can give me answers that are not organized or clear. For example.
+#I didn't have any bugs in this lab.
+
